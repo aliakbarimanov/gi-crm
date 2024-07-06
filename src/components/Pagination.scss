@@ -1,0 +1,24 @@
+.pagination_ul{
+    display: flex;
+    justify-content: flex-end;
+    width: 35%;
+    height: 30px;
+    // background-color: red;
+    list-style: none;
+
+    .pagination-item{
+        width: 100%;
+        height: 100%;
+        border: 1px solid #cbcdce;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &.active{
+            background-color: #eff6ff;
+            border: 1px solid #6aa3ff;
+            color: #6aa3ff;
+        }
+    }
+}
