@@ -1,0 +1,22 @@
+// install fullcalendar library
+npm i @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/timegrid
+
+---------------------------------------------------------------------------------
+
+// tailwind
+npm init -y
+npm i -D tailwindcss
+npx tailwindcss init
+
+// tailwind cli build process for watch
+npx tailwindcss -i ./style.css -o ./output.css --watch
+
+here output css is add second and make new styles
+
+---------------------------------------------------------------------------------
+
+npx json-server --watch src/db/data.json --port 8000
+
+---------------------------------------------------------------------------------
+
+npm install react-tiny-popover --save

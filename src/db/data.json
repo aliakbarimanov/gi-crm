@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Title1",
+      "description": "Ceremony in the hotel.",
+      "time": "2024-07-25"
+    },
+    {
+      "id": "2",
+      "title": "Title2",
+      "description": "Party in the school.",
+      "time": "2024-07-11"
+    },
+    {
+      "id": "3",
+      "title": "Title3",
+      "description": "Footbal game in euro 2024.",
+      "time": "2024-07-15"
+    },
+    {
+      "id": "4",
+      "title": "Title4",
+      "description": "Teststdts.",
+      "time": "2024-07-15"
+    }
+  ]
+}
