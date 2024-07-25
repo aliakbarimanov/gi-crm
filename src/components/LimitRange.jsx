@@ -8,4 +8,4 @@ function LimitRange({onLimitChange, limit}) {
     )
 }
 
-export default LimitRange
+export default LimitRange 
