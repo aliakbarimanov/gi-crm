@@ -1,15 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import Customers from "./pages/Customers";
-import Calendar from "./pages/Calendar";
-import Tasks from "./pages/Tasks";
-<<<<<<< HEAD
-import Login from "./pages/Login";
-=======
-import AppointmentForm from "./pages/AppointmentForm";
->>>>>>> 36f1e4ab42140b5e8b63bd40640332fd11b8fb88
+import Dashboard from "./pages/dashboard/Dashboard";
+import Customers from "./pages/customers/Customers";
+import Calendar from "./pages/calendar/Calendar";
+import Tasks from "./pages/tasks/Tasks";
+import Login from "./pages/login/Login";
+import AppointmentForm from "./pages/appointmentform/AppointmentForm";
 
 function App() {
   return (
@@ -20,11 +17,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/calendar/*" element={<Calendar />} />
           <Route path="/tasks" element={<Tasks />} />
-<<<<<<< HEAD
-          <Route path="/login" element={<Login/>} />
-=======
+          <Route path="/login" element={<Login />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
->>>>>>> 36f1e4ab42140b5e8b63bd40640332fd11b8fb88
         </Routes>
       </Sidebar>
     </BrowserRouter>
