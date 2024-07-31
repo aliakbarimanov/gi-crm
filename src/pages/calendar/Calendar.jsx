@@ -4,9 +4,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
-import Profile from "../components/Profile";
-import Calendar from "../components/Calendar";
-import Reminder from "../components/Reminder";
+import Profile from "../../components/profile/Profile";
+import Calendar from "../../components/calendar/Calendar";
+import Reminder from "../../components/reminder/Reminder";
 
 const Home = () => {
   return (

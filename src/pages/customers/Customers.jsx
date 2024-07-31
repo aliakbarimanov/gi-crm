@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import "./Customers.scss";
-import Pagination from "../components/Pagination";
-import { PaginationRange } from "../components/PaginationRange";
-import LimitRange from "../components/LimitRange";
+import Pagination from "../../components/pagination/Pagination";
+import { PaginationRange } from "../../components/pagination/PaginationRange";
+import LimitRange from "../../components/LimitRange";
 
 const BASE_URL = "http://localhost:8000";
 let totalPage;
