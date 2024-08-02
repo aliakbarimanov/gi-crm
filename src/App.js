@@ -7,6 +7,7 @@ import Calendar from "./pages/calendar/Calendar";
 import Tasks from "./pages/tasks/Tasks";
 import Login from "./pages/login/Login";
 import AppointmentForm from "./pages/appointmentform/AppointmentForm";
+import NewCustomer from "./components/newCustomer/NewCustomer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/calendar/*" element={<Calendar />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/newCustomer" element={<NewCustomer />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
         </Routes>
       </Sidebar>
