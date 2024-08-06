@@ -16,8 +16,13 @@
                     flex-direction: column;
                     gap: 10px;
                     width: 45%;
+                    @media (max-width:768px) {
+                        width: 100%;
+                    }
                     input,select{
                         border: 1px solid #9c9c9c;
+                        padding: 5px 0;
+                        border-radius: 5px;
                     }
                 }
                 
