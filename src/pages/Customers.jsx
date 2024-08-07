@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination";
 import { PaginationRange } from "../components/PaginationRange";
 import LimitRange from "../components/LimitRange";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "http://localhost:3000";
 let totalPage;
 let pageNo;
 
@@ -177,10 +177,6 @@ function Customers() {
         </div>
       </div></>
 )}
-
-
-
-
     </div>
   );
 }
