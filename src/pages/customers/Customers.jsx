@@ -4,6 +4,7 @@ import "./Customers.scss";
 import Pagination from "../../components/pagination/Pagination";
 import { PaginationRange } from "../../components/pagination/PaginationRange";
 import LimitRange from "../../components/LimitRange";
+import { Link } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8000";
 let totalPage;
@@ -92,7 +93,7 @@ function Customers() {
     <div className="customers">
       <header>
         <h1>Customers</h1>
-        <button>+ New Customer</button>
+        <Link to='/newCustomer'><button>+ New Customer</button></Link>
       </header>
       <hr />
       <div className="filtering">
