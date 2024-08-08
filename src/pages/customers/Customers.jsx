@@ -6,7 +6,7 @@ import { PaginationRange } from "../../components/pagination/PaginationRange";
 import LimitRange from "../../components/LimitRange";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "http://localhost:3000";
 let totalPage;
 let pageNo;
 
@@ -178,10 +178,6 @@ function Customers() {
         </div>
       </div></>
 )}
-
-
-
-
     </div>
   );
 }
