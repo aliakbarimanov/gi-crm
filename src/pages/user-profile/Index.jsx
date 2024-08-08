@@ -9,7 +9,7 @@ export default function Index() {
     <section className="user-profile">
       <div className="container">
         <ProfileHeader />
-        <div className="profile-actions mt-28 flex">
+        <div className="profile-actions flex border-t-2">
           <AboutProfile />
           <ResetPassword />
         </div>

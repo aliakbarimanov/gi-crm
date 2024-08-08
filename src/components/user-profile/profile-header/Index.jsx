@@ -4,7 +4,7 @@ import profilePicture from "../../../assets/user.jpg";
 
 export default function Index() {
   return (
-    <div className="profile-header py-6 border-b-2 flex items-center gap-x-5">
+    <div className="profile-header py-6 flex items-center gap-x-5">
         <div className="profile-image w-20 h-20 rounded-full">
           <img
             src={profilePicture}
