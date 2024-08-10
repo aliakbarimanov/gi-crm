@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Customers from "./pages/customers/Customers";
 import Calendar from "./pages/calendar/Calendar";
-import Tasks from "./pages/tasks/Tasks";
+import Tasks from "./pages/task/Task";
 import Login from "./pages/login/Login";
 import AppointmentForm from "./pages/appointmentform/AppointmentForm";
 import NewCustomer from "./components/newCustomer/NewCustomer";
