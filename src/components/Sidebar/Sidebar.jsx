@@ -12,8 +12,8 @@ import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
 import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 import { HiDotsHorizontal } from "react-icons/hi";
+import { CgProfile } from "react-icons/cg";
 import { CiLogin } from "react-icons/ci";
-
 
 const menuItem = [
   {
@@ -37,10 +37,15 @@ const menuItem = [
     icon: <MdOutlineWorkspacePremium className="react_icons" />,
   },
   {
-    path:"/login",
-    name:"Login",
-    icon:<CiLogin className="react_icons" />
-  }
+    path: "/user-profile",
+    name: "Profile",
+    icon: <CgProfile className="react_icons" />,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    icon: <CiLogin className="react_icons" />,
+  },
 ];
 
 function Sidebar({ children }) {
