@@ -6,7 +6,8 @@ import { PaginationRange } from "../../components/pagination/PaginationRange";
 import LimitRange from "../../components/LimitRange";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "http://localhost:3000";
+// const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://fakestoreapi.com/users";
 let totalPage;
 let pageNo;
 
@@ -42,9 +43,11 @@ function Customers() {
 
         try {
           setIsLoading(true);
-          const response = await fetch(`${BASE_URL}/customers`);
+          const response = await fetch(`${BASE_URL}`);
           if (!response.ok) throw new Error('Something went wrong with Fetching Customers');
           const data = await response.json();
+          console.log(data);
+          
           setResults(data?.length);
           totalPage = Math.ceil(data?.length / limit);
           if(page <= totalPage) pageNo = page;
@@ -141,7 +144,7 @@ function Customers() {
               <th className="email">Email</th>
               <th className="status">Status</th>
               <th className="gender">Gender</th>
-              <th className="products">Products</th>
+              <th className="products">Password</th>
               <th className="price">Price</th>
             </tr>
           </thead>
@@ -149,21 +152,21 @@ function Customers() {
             {customers?.map((customer) => (
               <tr key={customer.id}>
                 <td>{customer.id}</td>
-                <td>{customer.name}</td>
+                <td>{customer.name.firstname}</td>
                 <td><div className="stages_item"><span 
-                style={customer.stages === "Lead" ? {backgroundColor: "#fef3c7", color: "#ba8252", borderColor: "#ba8252"} 
-                : customer.stages === "Contacted" ? {backgroundColor: "#f3f4f6", color: "#4c535f", borderColor: "#4c535f"}
-                : customer.stages === "Qualified" ? {backgroundColor: "#dbeafe", color: "#415fbd", borderColor: "#415fbd"}
-                : customer.stages === "Postponed" ? {backgroundColor: "#fce7f3", color: "#bc5b83", borderColor: "#bc5b83"}
-                : customer.stages === "Won" ? {backgroundColor: "#d1fae5", color: "#589d86", borderColor: "#589d86"}
-                : customer.stages === "Lost" ? {backgroundColor: "#fee1e1", color: "#b85858", borderColor: "#b85858"} : null}
-                >{customer.stages}</span></div></td>
-                <td>{customer.phone_number}</td>
+                style={customer.address.street === "Lead" ? {backgroundColor: "#fef3c7", color: "#ba8252", borderColor: "#ba8252"} 
+                : customer.address.street === "Contacted" ? {backgroundColor: "#f3f4f6", color: "#4c535f", borderColor: "#4c535f"}
+                : customer.address.street === "Qualified" ? {backgroundColor: "#dbeafe", color: "#415fbd", borderColor: "#415fbd"}
+                : customer.address.street === "Postponed" ? {backgroundColor: "#fce7f3", color: "#bc5b83", borderColor: "#bc5b83"}
+                : customer.address.street === "Won" ? {backgroundColor: "#d1fae5", color: "#589d86", borderColor: "#589d86"}
+                : customer.address.street === "Lost" ? {backgroundColor: "#fee1e1", color: "#b85858", borderColor: "#b85858"} : null}
+                >{customer.address.street}</span></div></td>
+                <td>{customer.phone}</td>
                 <td>{customer.email}</td>
-                <td className="status_item"><span style={customer.status === "student" ? {backgroundColor: "#f87171"} : {backgroundColor: "#22d3ee"}}></span>{customer.status}</td>
-                <td>{customer.gender}</td>
-                <td>{customer.products}</td>
-                <td>{customer.price}</td>
+                <td className="status_item"><span style={customer.address.city === "student" ? {backgroundColor: "#f87171"} : {backgroundColor: "#22d3ee"}}></span>{customer.address.city}</td>
+                <td>{customer.name.lastname}</td>
+                <td>{customer.password}</td>
+                <td>{customer.address.geolocation.long}</td>
               </tr>
             ))} 
           </tbody>
