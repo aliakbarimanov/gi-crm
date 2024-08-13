@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Sidebar from "./components/Sidebar/Sidebar"
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./pages/dashboard/Index";
 import Customers from "./pages/customers/Customers";
 import Calendar from "./pages/calendar/Calendar";
 import Tasks from "./pages/task/Task";
