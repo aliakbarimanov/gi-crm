@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
-// import Pagination from "../../components/pagination/Pagination";
-// import LimitRange from "../../components/LimitRange";
-// import { Link } from "react-router-dom";
+import Pagination from "../../components/pagination/Pagination";
+import LimitRange from "../../components/LimitRange";
+import { Link } from "react-router-dom";
 
 import "../task/Task.scss";
 
@@ -58,7 +58,9 @@ const Tasks = () => {
         <div className="column">
           <div className="headText">
             <h1>Task List</h1>
-            <button>Add New Task</button>
+            <Link to="/newTask">
+              <button>New Task</button>
+            </Link>
           </div>
           {/* {isLoading ? (
             <h1>Loading...</h1>
