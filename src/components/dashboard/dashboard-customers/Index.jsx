@@ -9,7 +9,7 @@ export default function Index() {
     { name: 'Remaining', value: 40 }
   ];
 
-  const COLORS = ['#FF69B4','#E0E0E0','#8A2BE2']; 
+  const COLORS = ['#FF69B4','#FFFF00','#8A2BE2']; 
 
   const renderCustomizedLabel = ({ cx, cy, percent }) => {
     return (
@@ -41,8 +41,8 @@ export default function Index() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100 p-4">
-      <div className="bg-white p-4 rounded-lg shadow-lg">
+    <div className="w-4/12 rounded-3xl bg-mainGrey h-50 shadow-lg flex justify-center items-center p-4">
+      <div className="p-4">
         <h2 className="text-xl font-semibold mb-4 text-center">Customers</h2>
         <p className="text-gray-700 text-center">Customers that buy products</p>
         <PieChart width={400} height={400}>
