@@ -96,6 +96,7 @@ const Tasks = () => {
               totalPage={Math.ceil(results / limit)}
               siblings={1}
               onPageChange={handlePageChange}
+              
             />
           </div>
         </div>
