@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../newCustomer/NewCustomer.scss";
 
 import axios from "axios";
@@ -12,6 +12,19 @@ import { object, string } from "yup";
 
 const NewCustomer = () => {
   const BASE_URL = "http://localhost:8085/edupo";
+
+  const stages = ["lead", "contacted", "qualified", "postponed", "won", "lost"];
+
+  const { courses, setCourses } = useState([]);
+
+  const callCourses = async () => {
+    await axios
+      .get(`${BASE_URL}/api/v1/courses`)
+      .then((res) => setCourses(res))
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(callCourses, []);
 
   const newCustomerSchema = object({
     name: string()
@@ -30,6 +43,9 @@ const NewCustomer = () => {
       ),
     gender: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
     status: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
+    course: string()
+      .required("Kurs adını daxil etmədiniz!")
+      .trim("Kurs adını daxil etmədiniz!"),
   });
 
   const {
@@ -65,12 +81,14 @@ const NewCustomer = () => {
             </div>
             <div>
               <label htmlFor="stage">Stage:</label>
-              <input
-                type="text"
-                name="stage"
-                id="stage"
-                {...register("stage")}
-              />
+              <select name="stage" id="stage" {...register("stage")}>
+                <option value="">----</option>
+                {stages.map((stage, index) => (
+                  <option value={stage} key={index}>
+                    {stage}
+                  </option>
+                ))}
+              </select>
               {errors.stage && <span>{errors.stage.message}</span>}
             </div>
             <div>
@@ -98,6 +116,7 @@ const NewCustomer = () => {
             <div>
               <label htmlFor="gender">Gender:</label>
               <select name="gender" id="gender" {...register("gender")}>
+                <option value="">----</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
@@ -106,10 +125,20 @@ const NewCustomer = () => {
             <div>
               <label htmlFor="status">Status:</label>
               <select name="status" id="status" {...register("status")}>
+                <option value="">----</option>
                 <option value="owner">Owner</option>
                 <option value="ceo">CEO</option>
               </select>
               {errors.status && <span>{errors.status.message}</span>}
+            </div>
+            <div>
+              <label htmlFor="course">Course:</label>
+              <select name="course" id="course" {...register("course")}>
+                {courses.map((course, index) => (
+                  <option value={course.id} key={index}>{course.courseName}</option>
+                ))}
+              </select>
+              {errors.course && <span>{errors.course.message}</span>}
             </div>
             <div>
               <button>Add New</button>
