@@ -1,40 +1,43 @@
-.newCustomer{
-    .container{
-        .headText{
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 32px;
-        }
-        .form{
-            form{
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                div{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    width: 45%;
-                    @media (max-width:768px) {
-                        width: 100%;
-                    }
-                    input,select{
-                        border: 1px solid #9c9c9c;
-                        padding: 5px 0;
-                        border-radius: 5px;
-                    }
-                }
-                
-            }
-            
-        }
-        button{
+.newCustomer {
+  .container {
+    .headText {
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 32px;
+    }
+    .form {
+      form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          width: 45%;
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+          input,
+          select {
+            border: 1px solid #9c9c9c;
+            padding: 5px 10px;
+            border-radius: 5px;
+          }
+          span {
+            align-self: flex-end;
+            color: #ff0000;
+          }
+          button {
             padding: 10px 20px;
             color: #fff;
             background-color: rgb(9, 121, 212);
             margin-top: 20px;
-            float: right;
+            align-self: flex-start;
+          }
         }
+      }
     }
+  }
 }
