@@ -3,6 +3,13 @@ npm i @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/timegrid
 
 ---------------------------------------------------------------------------------
 
+npm i react-hook-form
+npm i @hookform/resolvers yup
+npm i yup
+npm i react-toastify
+
+---------------------------------------------------------------------------------
+
 // tailwind
 npm init -y
 npm i -D tailwindcss

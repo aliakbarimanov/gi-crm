@@ -6,7 +6,7 @@ import { PaginationRange } from "../../components/pagination/PaginationRange";
 import LimitRange from "../../components/LimitRange";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "https://fakestoreapi.com/users";
+const BASE_URL = "http://localhost:8085/edupo";
 let totalPage;
 let pageNo;
 
@@ -41,7 +41,7 @@ function Customers() {
       async function fetchCustomers() {
         try {
           setIsLoading(true);
-          const response = await fetch(`${BASE_URL}`);
+          const response = await fetch(`${BASE_URL}/api/v1/customers`);
           if (!response.ok)
             throw new Error("Something went wrong with Fetching Customers");
           const data = await response.json();
@@ -180,57 +180,59 @@ function Customers() {
             <table className="customers_table">
               <thead>
                 <tr>
-                  <th className="customer_id">ID</th>
+                  <th className="customer_id">No:</th>
                   <th className="name">Name</th>
                   <th className="stages">Stages</th>
                   <th className="phone_number">Phone Number</th>
                   <th className="email">Email</th>
-                  <th className="status">Status</th>
                   <th className="gender">Gender</th>
-                  <th className="products">Password</th>
+                  <th className="status">Status</th>
+                  <th className="course">Course</th>
+                  <th className="probability">Probability</th>
+                  <th className="next_step">Next Step</th>
                   <th className="price">Price</th>
                 </tr>
               </thead>
               <tbody>
-                {customers?.map((customer) => (
+                {customers?.map((customer, index) => (
                   <tr key={customer.id}>
-                    <td>{customer.id}</td>
-                    <td>{customer.name.firstname}</td>
+                    <td>{index + 1}</td>
+                    <td>{customer.name}</td>
                     <td>
                       <div className="stages_item">
                         <span
                           style={
-                            customer.address.street === "Lead"
+                            customer.stage === "Lead"
                               ? {
                                   backgroundColor: "#fef3c7",
                                   color: "#ba8252",
                                   borderColor: "#ba8252",
                                 }
-                              : customer.address.street === "Contacted"
+                              : customer.stage === "Contacted"
                               ? {
                                   backgroundColor: "#f3f4f6",
                                   color: "#4c535f",
                                   borderColor: "#4c535f",
                                 }
-                              : customer.address.street === "Qualified"
+                              : customer.stage === "Qualified"
                               ? {
                                   backgroundColor: "#dbeafe",
                                   color: "#415fbd",
                                   borderColor: "#415fbd",
                                 }
-                              : customer.address.street === "Postponed"
+                              : customer.stage === "Postponed"
                               ? {
                                   backgroundColor: "#fce7f3",
                                   color: "#bc5b83",
                                   borderColor: "#bc5b83",
                                 }
-                              : customer.address.street === "Won"
+                              : customer.stage === "Won"
                               ? {
                                   backgroundColor: "#d1fae5",
                                   color: "#589d86",
                                   borderColor: "#589d86",
                                 }
-                              : customer.address.street === "Lost"
+                              : customer.stage === "Lost"
                               ? {
                                   backgroundColor: "#fee1e1",
                                   color: "#b85858",
@@ -239,25 +241,27 @@ function Customers() {
                               : null
                           }
                         >
-                          {customer.address.street}
+                          stage
                         </span>
                       </div>
                     </td>
-                    <td>{customer.phone}</td>
+                    <td>{customer.mobileNumber}</td>
                     <td>{customer.email}</td>
                     <td className="status_item">
                       <span
                         style={
-                          customer.address.city === "student"
+                          customer.gender === "male"
                             ? { backgroundColor: "#f87171" }
                             : { backgroundColor: "#22d3ee" }
                         }
                       ></span>
-                      {customer.address.city}
+                      {customer.gender}
                     </td>
-                    <td>{customer.name.lastname}</td>
-                    <td>{customer.password}</td>
-                    <td>{customer.address.geolocation.long}</td>
+                    <td>{customer.status}</td>
+                    <td>{customer.course}</td>
+                    <td>{customer.probability}</td>
+                    <td>{customer.nextStep}</td>
+                    <td>{customer.price}</td>
                   </tr>
                 ))}
               </tbody>

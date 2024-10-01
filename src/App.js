@@ -21,7 +21,7 @@ function App() {
           <Route path="/calendar/*" element={<Calendar />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/newCustomer" element={<NewCustomer />} />
+          {/* <Route path="/newCustomer" element={<NewCustomer />} /> */}
           <Route path="/newTask" element={<NewTask />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
           <Route path="/user-profile" element={<UserProfile />} />
