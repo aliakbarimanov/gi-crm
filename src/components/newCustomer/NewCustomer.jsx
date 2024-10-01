@@ -43,9 +43,10 @@ const NewCustomer = () => {
       ),
     gender: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
     status: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
-    course: string()
+    courseId: string()
       .required("Kurs adını daxil etmədiniz!")
       .trim("Kurs adını daxil etmədiniz!"),
+    userId: string().default(1),
   });
 
   const {
@@ -133,12 +134,12 @@ const NewCustomer = () => {
             </div>
             <div>
               <label htmlFor="course">Course:</label>
-              <select name="course" id="course" {...register("course")}>
+              <select name="courseId" id="course" {...register("courseId")}>
                 {courses.map((course, index) => (
                   <option value={course.id} key={index}>{course.courseName}</option>
                 ))}
               </select>
-              {errors.course && <span>{errors.course.message}</span>}
+              {errors.courseId && <span>{errors.courseId.message}</span>}
             </div>
             <div>
               <button>Add New</button>
