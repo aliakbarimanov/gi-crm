@@ -7,8 +7,6 @@ import LimitRange from "../../components/LimitRange";
 import { Link } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8085/edupo";
-let totalPage;
-let pageNo;
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -22,102 +20,75 @@ function Customers() {
   const [first, setFirst] = useState(0);
   const [last, setLast] = useState(0);
 
-  function handlePageChange(value) {
-    if (value === "&laquo;" || value === "... ") {
-      setPage(1);
-    } else if (value === "&lsaquo;") {
-      if (page !== 1) setPage(page - 1);
-    } else if (value === "&raquo;" || value === " ...") {
-      setPage(totalPage);
-    } else if (value === "&rsaquo;") {
-      if (page !== totalPage) setPage(page + 1);
-    } else {
-      setPage(value);
-    }
-  }
-
-  useEffect(
-    function () {
-      async function fetchCustomers() {
-        try {
-          setIsLoading(true);
-          const response = await fetch(`${BASE_URL}/api/v1/customers`);
-          if (!response.ok)
-            throw new Error("Something went wrong with Fetching Customers");
-          const data = await response.json();
-
-          setResults(data?.length);
-          totalPage = Math.ceil(data?.length / limit);
-          if (page <= totalPage) pageNo = page;
-          else {
-            setPage(totalPage);
-            pageNo = page;
-          }
-          let searched =
-            search.trim().length > 0
-              ? data
-                  .slice()
-                  .filter((customers) =>
-                    customers.name
-                      .trim()
-                      .toLowerCase()
-                      .replaceAll(" ", "")
-                      .includes(search.trim().toLowerCase().replaceAll(" ", ""))
-                  )
-              : data.slice();
-
-          let sorted =
-            sort === "From A to Z"
-              ? searched.slice().sort((a, b) => a.name.localeCompare(b.name))
-              : sort === "From Z to A"
-              ? searched.slice().sort((a, b) => b.name.localeCompare(a.name))
-              : sort === "From Expensive to Cheap"
-              ? searched.slice().sort((a, b) => b.price - a.price)
-              : sort === "From Cheap to Expensive"
-              ? searched.slice().sort((a, b) => a.price - b.price)
-              : searched.slice();
-
-          let staged =
-            stages === "Lead"
-              ? sorted.slice().filter((customers) => customers.stages == "Lead")
-              : stages === "Contacted"
-              ? sorted
-                  .slice()
-                  .filter((customers) => customers.stages == "Contacted")
-              : stages === "Qualified"
-              ? sorted
-                  .slice()
-                  .filter((customers) => customers.stages == "Qualified")
-              : stages === "Postponed"
-              ? sorted
-                  .slice()
-                  .filter((customers) => customers.stages == "Postponed")
-              : stages === "Won"
-              ? sorted.slice().filter((customers) => customers.stages == "Won")
-              : stages === "Lost"
-              ? sorted.slice().filter((customers) => customers.stages == "Lost")
-              : sorted.slice();
-
-          let display = [];
-          for (let i = (page - 1) * limit; i < page * limit && staged[i]; i++) {
-            display.push(staged[i]);
-            if ((i + 1).toString().endsWith(0)) setLast(i + 1);
-            if ((i + 1).toString().endsWith(1)) {
-              setFirst(i + 1);
-            }
-          }
-
-          setCustomers(display);
-        } catch (error) {
-          console.log("There was an error loading data...");
-        } finally {
-          setIsLoading(false);
-        }
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${BASE_URL}/api/v1/customers`);
+        if (!response.ok) throw new Error("Something went wrong with Fetching Customers");
+        
+        const data = await response.json();
+        setResults(data.length);
+        
+        const filteredData = applyFilters(data);
+        const displayedCustomers = paginateData(filteredData);
+        
+        setCustomers(displayedCustomers);
+      } catch (error) {
+        console.log("There was an error loading data...");
+      } finally {
+        setIsLoading(false);
       }
-      fetchCustomers();
-    },
-    [search, sort, stages, page, limit]
-  );
+    };
+
+    fetchCustomers();
+  }, [search, sort, stages, page, limit]);
+
+  const applyFilters = (data) => {
+    const searched = search.trim()
+      ? data.filter(customer => customer.name.toLowerCase().includes(search.toLowerCase()))
+      : data;
+
+    const sorted = sortData(searched);
+    return filterByStage(sorted);
+  };
+
+  const sortData = (data) => {
+    switch (sort) {
+      case "From A to Z":
+        return data.sort((a, b) => a.name.localeCompare(b.name));
+      case "From Z to A":
+        return data.sort((a, b) => b.name.localeCompare(a.name));
+      case "From Cheap to Expensive":
+        return data.sort((a, b) => a.price - b.price);
+      case "From Expensive to Cheap":
+        return data.sort((a, b) => b.price - a.price);
+      default:
+        return data;
+    }
+  };
+
+  const filterByStage = (data) => {
+    if (!stages) return data;
+    return data.filter(customer => customer.stage === stages);
+  };
+
+  const paginateData = (data) => {
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    setFirst(startIndex + 1);
+    setLast(endIndex > results ? results : endIndex);
+    return data.slice(startIndex, endIndex);
+  };
+
+  const handlePageChange = (value) => {
+    setPage(prevPage => {
+      if (value === "&laquo;" || value === "... ") return 1;
+      if (value === "&lsaquo;") return Math.max(prevPage - 1, 1);
+      if (value === "&raquo;" || value === " ...") return Math.ceil(results / limit);
+      return value;
+    });
+  };
 
   return (
     <div className="customers">
@@ -131,11 +102,7 @@ function Customers() {
       <div className="filtering">
         <form>
           <div className="sort_search">
-            <select
-              name="sort"
-              id="sort"
-              onChange={(e) => setSort(e.target.value)}
-            >
+            <select name="sort" id="sort" onChange={(e) => setSort(e.target.value)}>
               <option>Sort by</option>
               <option>From A to Z</option>
               <option>From Z to A</option>
@@ -155,12 +122,7 @@ function Customers() {
               </div>
             </div>
           </div>
-
-          <select
-            name="stages"
-            id="stages"
-            onChange={(e) => setStages(e.target.value)}
-          >
+          <select name="stages" id="stages" onChange={(e) => setStages(e.target.value)}>
             <option>Stages</option>
             <option>Lead</option>
             <option>Contacted</option>
@@ -194,54 +156,14 @@ function Customers() {
                 </tr>
               </thead>
               <tbody>
-                {customers?.map((customer, index) => (
+                {customers.map((customer, index) => (
                   <tr key={customer.id}>
                     <td>{index + 1}</td>
                     <td>{customer.name}</td>
                     <td>
                       <div className="stages_item">
-                        <span
-                          style={
-                            customer.stage === "Lead"
-                              ? {
-                                  backgroundColor: "#fef3c7",
-                                  color: "#ba8252",
-                                  borderColor: "#ba8252",
-                                }
-                              : customer.stage === "Contacted"
-                              ? {
-                                  backgroundColor: "#f3f4f6",
-                                  color: "#4c535f",
-                                  borderColor: "#4c535f",
-                                }
-                              : customer.stage === "Qualified"
-                              ? {
-                                  backgroundColor: "#dbeafe",
-                                  color: "#415fbd",
-                                  borderColor: "#415fbd",
-                                }
-                              : customer.stage === "Postponed"
-                              ? {
-                                  backgroundColor: "#fce7f3",
-                                  color: "#bc5b83",
-                                  borderColor: "#bc5b83",
-                                }
-                              : customer.stage === "Won"
-                              ? {
-                                  backgroundColor: "#d1fae5",
-                                  color: "#589d86",
-                                  borderColor: "#589d86",
-                                }
-                              : customer.stage === "Lost"
-                              ? {
-                                  backgroundColor: "#fee1e1",
-                                  color: "#b85858",
-                                  borderColor: "#b85858",
-                                }
-                              : null
-                          }
-                        >
-                          stage
+                        <span className={`stage ${customer.stage.toLowerCase()}`}>
+                          {customer.stage}
                         </span>
                       </div>
                     </td>
@@ -249,11 +171,9 @@ function Customers() {
                     <td>{customer.email}</td>
                     <td className="status_item">
                       <span
-                        style={
-                          customer.gender === "male"
-                            ? { backgroundColor: "#f87171" }
-                            : { backgroundColor: "#22d3ee" }
-                        }
+                        style={{
+                          backgroundColor: customer.gender === "male" ? "#f87171" : "#22d3ee",
+                        }}
                       ></span>
                       {customer.gender}
                     </td>
@@ -271,16 +191,15 @@ function Customers() {
           <div className="pagination">
             <div className="pagination_details">
               <p>
-                Showing <b>{first}</b> to <b>{last}</b> of <b>{results}</b>{" "}
-                result
+                Showing <b>{first}</b> to <b>{last}</b> of <b>{results}</b> result(s)
               </p>
             </div>
             <div className="pagination_movements">
               <LimitRange onLimitChange={setLimit} limit={limit} />
               <Pagination
-                page={pageNo}
+                page={page}
                 limit={limit}
-                totalPage={totalPage}
+                totalPage={Math.ceil(results / limit)}
                 siblings={1}
                 onPageChange={handlePageChange}
               />
