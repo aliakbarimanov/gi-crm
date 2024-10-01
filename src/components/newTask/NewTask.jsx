@@ -28,19 +28,14 @@ const NewTask = () => {
     taskSubject: string()
       .required("Boş keçmək olmaz!")
       .trim("Boş keçmək olmaz!"),
-    customerName: string()
+    customerName: string().trim("Boş keçmək olmaz!"),
+    customerId: string().default(1),
+    dueDate: string()
+      .default("2024-10-01")
       .required("Boş keçmək olmaz!")
       .trim("Boş keçmək olmaz!"),
-    customerId: string()
-      .default(1)
-      .required("Boş keçmək olmaz!")
-      .trim("Boş keçmək olmaz!"),
-    dueDate: string().default("2024-10-01").required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
-    userId: string()
-      .default(1)
-      .required("Boş keçmək olmaz!")
-      .trim("Boş keçmək olmaz!"),
-    note: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
+    userId: string().default(1),
+    note: string(),
     status: string().required("Boş keçmək olmaz!").trim("Boş keçmək olmaz!"),
   });
 
