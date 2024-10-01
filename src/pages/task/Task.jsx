@@ -49,7 +49,7 @@ const Tasks = () => {
           <div className="headText">
             <h1>Task List</h1>
             <Link to="/newTask">
-              <button>New Task</button>
+              <button>+ New Task</button>
             </Link>
           </div>
           {isLoading ? (
